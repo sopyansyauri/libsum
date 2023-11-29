@@ -36,15 +36,27 @@ install:
 	cp -R build/include build/lib build/src /usr/local
 	ldconfig /usr/local/lib
 
+FOLDER_INCLUDE = /usr/local/include/
+FOLDER_SRC = /usr/local/src/
+FOLDER_LIB = /usr/local/lib/
+
+POST_CLEAN = $(addprefix $(FOLDER_INCLUDE), sum*) \
+			 $(addprefix $(FOLDER_SRC), sum*) \
+			 $(addprefix $(FOLDER_LIB), libsum*) \
+
 .PHONY: uninstall
 uninstall:
-	rm -f /usr/local/include/sum.h
-	rm -rf /usr/local/src/sum.c
-	rm -f /usr/local/lib/libsum.so /usr/local/lib/libsum.so.1 /usr/local/lib/libsum.so.1.0 /usr/local/lib/libsum.a
+	rm -f $(POST_CLEAN)
+
+# rm -f /usr/local/include/sum.h
+# rm -f /usr/local/src/sum.c
+# rm -f /usr/local/lib/libsum.so /usr/local/lib/libsum.so.1 /usr/local/lib/libsum.so.1.0 /usr/local/lib/libsum.a
+
+FOLDER_BUILD = build/
 
 .PHONY: clean
 clean: uninstall
-	rm -rf build
+	rm -rf $(FOLDER_BUILD)
 
 .PHONY: version
 version:
