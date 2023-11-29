@@ -2,7 +2,7 @@
 
 ## Installation
 
-### Ubunutu
+### Linux
 
 ```
 $ sudo make
